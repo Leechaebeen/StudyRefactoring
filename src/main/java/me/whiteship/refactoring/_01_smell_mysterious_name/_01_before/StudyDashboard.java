@@ -18,8 +18,14 @@ public class StudyDashboard {
 
     /** 
      * 스터디 리뷰 이슈에 작성되어 있는 리뷰어 목록과 리뷰를 읽어옵니다.
+     * @throws IOException
      * */
-    private void studyReviews(GHIssue issue) throws IOException {
+    private void loadReviews() throws IOException {
+        // 여기서 issue 는 변하지 않기 때문에 매개변수로 받지 않도록 변경함
+        GitHub gitHub = GitHub.connect();
+        GHRepository repository = gitHub.getRepository("whiteship/live-study");
+        GHIssue issue = repository.getIssue(30);
+
         List<GHIssueComment> comments = issue.getComments();
         for (GHIssueComment comment : comments) {
             usernames.add(comment.getUserName());
@@ -36,12 +42,9 @@ public class StudyDashboard {
     }
 
     public static void main(String[] args) throws IOException {
-        GitHub gitHub = GitHub.connect();
-        GHRepository repository = gitHub.getRepository("whiteship/live-study");
-        GHIssue issue = repository.getIssue(30);
 
         StudyDashboard studyDashboard = new StudyDashboard();
-        studyDashboard.studyReviews(issue);
+        studyDashboard.loadReviews();
         studyDashboard.getUsernames().forEach(System.out::println);
         studyDashboard.getReviews().forEach(System.out::println);
     }
