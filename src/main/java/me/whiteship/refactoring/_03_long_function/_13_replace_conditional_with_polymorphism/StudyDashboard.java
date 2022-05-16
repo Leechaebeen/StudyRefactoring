@@ -12,6 +12,14 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * 리팩토링 13. 조건문을 다형성으로 바꾸기 Replace Conditional With Polymorphism
+ * - 여러 타입에 따라 각기 다른 로직으로 처리해야 하는 경우에 다형성을 적용해서 조건문을 보다 명확하게 분리할 수 있다.
+ *   (예: 책, 음악, 음식 등 ... ) 반복되는 switch 문을 각기 다른 클래스로 만들어 제거할 수 있다.
+ * - 공통으로 사용되는 로직은 상위 클래스에 두고 달라지는 부분만 하위 클래스에 둠으로써, 달라지는 부분만 강조할 수 있다.
+ * - 모든 조건문을 다형성으로 바꿔야 하는 것은 아니다.
+ *
+ * */
 public class StudyDashboard {
 
     private final int totalNumberOfEvents;
@@ -29,7 +37,7 @@ public class StudyDashboard {
 
     private void print() throws IOException, InterruptedException {
         checkGithubIssues(getGhRepository());
-        new StudyPrinter(this.totalNumberOfEvents, this.participants, PrinterMode.MARKDOWN).execute();
+        new MarkdownPrinter(this.totalNumberOfEvents, this.participants).execute();
     }
 
     private GHRepository getGhRepository() throws IOException {
