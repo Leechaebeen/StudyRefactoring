@@ -1,6 +1,5 @@
 package me.whiteship.refactoring._08_shotgun_surgery._27_move_field;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -18,32 +17,22 @@ import java.time.LocalDate;
 public class Customer {
 
     private String name;
-
-    private double discountRate;
-
     private CustomerContract contract;
 
     public Customer(String name, double discountRate) {
         this.name = name;
-        this.discountRate = discountRate;
-        this.contract = new CustomerContract(dateToday());
+        this.contract = new CustomerContract(dateToday(), discountRate);
     }
 
-    public double getDiscountRate() {
-        return discountRate;
-    }
 
-    public void becomePreferred() {
-        this.discountRate += 0.03;
-        // 다른 작업들
-    }
-
-    public double applyDiscount(double amount) {
-        BigDecimal value = BigDecimal.valueOf(amount);
-        return value.subtract(value.multiply(BigDecimal.valueOf(this.discountRate))).doubleValue();
-    }
+    // getter 와 setter 로 추상화를 먼저 해준다.
+    // 그 다음에 필드를 옮겨간다.
 
     private LocalDate dateToday() {
         return LocalDate.now();
+    }
+
+    public CustomerContract getContract() {
+        return contract;
     }
 }
