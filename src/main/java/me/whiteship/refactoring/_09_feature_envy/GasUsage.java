@@ -11,6 +11,11 @@ public class GasUsage {
         this.pricePerUnit = pricePerUnit;
     }
 
+    public double getGasBill(){
+        var gasBill = getAmount() * getPricePerUnit();
+        return gasBill;
+    }
+
     public double getAmount() {
         return amount;
     }

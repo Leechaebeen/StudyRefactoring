@@ -11,6 +11,10 @@ public class ElectricityUsage {
         this.pricePerUnit = pricePerUnit;
     }
 
+    double getElecticityBill(){
+        var electicityBill = getAmount() * getPricePerUnit();
+        return electicityBill;
+    }
     public double getAmount() {
         return amount;
     }
