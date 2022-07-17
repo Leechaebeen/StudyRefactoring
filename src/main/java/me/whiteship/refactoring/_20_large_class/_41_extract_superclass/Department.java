@@ -11,26 +11,20 @@ import java.util.List;
  *        또는 "타입 코드를 서브클래스로 교체하기"를 적용할 수 있다.
  * - 클래스 내부에 산재하는 중복 코드는 메소드를 추출하여 제거할 수 있다.
  * */
-public class Department {
-
-    private String name;
+public class Department extends Party{
 
     private List<Employee> staff;
 
-    public String getName() {
-        return name;
+    public Department(String name) {
+        super(name);
     }
 
     public List<Employee> getStaff() {
         return staff;
     }
 
-    public double totalMonthlyCost() {
-        return this.staff.stream().mapToDouble(e -> e.getMonthlyCost()).sum();
-    }
-
-    public double totalAnnualCost() {
-        return this.totalMonthlyCost() * 12;
+    public double monthlyCost() {
+        return this.staff.stream().mapToDouble(Employee::monthlyCost).sum();
     }
 
     public int headCount() {
